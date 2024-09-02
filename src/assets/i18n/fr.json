@@ -1,0 +1,14 @@
+{
+
+    "login.login" : "Se connecter",
+    "login.enter-email" : "Entrez votre adresse email",
+    "login.password" : "Mot de passe",
+    "login.password-security" : "Le mot de passe doit contenir au moins 8 caractères ainsi qu'au minimum une lettre et un chiffre",
+    "login.password-forgot" : "Vous avez oublié votre mot de passe ?",
+    "login.create-account" : "Créer un compte",
+    "login.create-my-account" : "Créer mon compte",
+    "login.enter-password" : "Entrez votre mot de passe",
+    "login.confirm-password" : "Confirmez votre mot de passe",
+    "login.already-have-account" : "Vous avez déjà un compte ?"
+
+}
