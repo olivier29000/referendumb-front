@@ -16,6 +16,7 @@ import {
 import { NgxGoogleAnalyticsModule } from 'ngx-google-analytics';
 import { LoginComponent } from './log/login.page';
 import { CreateAccountComponent } from './log/create-account.page';
+import { FormsModule } from '@angular/forms';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -31,6 +32,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    FormsModule,
     SharedModule,
     HttpClientModule,
     NgxGoogleAnalyticsModule.forRoot(environment.trackAnalyticID),

@@ -53,7 +53,7 @@ import { Language } from '../models/language.model';
             <app-feather-icons [icon]="'user'"></app-feather-icons>
           </div>
         </div>
-        <input type="text" class="form-control" [placeholder]="'login.enter-email' | translate">
+        <input type="text" class="form-control" name="email" [(ngModel)]="email" [placeholder]="'login.enter-email' | translate">
       </div>
     </div>
   
@@ -64,7 +64,12 @@ import { Language } from '../models/language.model';
           <app-feather-icons [icon]="'lock'"></app-feather-icons>
         </div>
       </div>
-      <input type="text" class="form-control" [placeholder]="'login.enter-password' | translate" autocomplete="off">
+      <input [type]="passwordType" name="password" [(ngModel)]="password" class="form-control" [placeholder]="'login.enter-password' | translate" autocomplete="off">
+      <div class="input-group-apend">
+        <div class="input-group-text" (click)="showPassword()">
+          <i id="pwd-icon" class="far" [ngClass]="passwordVisible == true ? 'fa-eye' : 'fa-eye-slash'"></i>
+        </div>
+      </div>
     </div>
   </div>
   <div class="form-group">
@@ -74,7 +79,7 @@ import { Language } from '../models/language.model';
           <app-feather-icons [icon]="'lock'"></app-feather-icons>
         </div>
       </div>
-      <input [type]="passwordType" id="pwd-input" class="form-control" [placeholder]="'login.confirm-password' | translate" autocomplete="off" maxlength="8">
+      <input [type]="passwordType" id="pwd-input" name="passwordConfirmation" [(ngModel)]="passwordConfirmation" class="form-control" [placeholder]="'login.confirm-password' | translate" autocomplete="off" maxlength="8">
       <div class="input-group-apend">
         <div class="input-group-text" (click)="showPassword()">
           <i id="pwd-icon" class="far" [ngClass]="passwordVisible == true ? 'fa-eye' : 'fa-eye-slash'"></i>
@@ -89,7 +94,7 @@ import { Language } from '../models/language.model';
                 <a [routerLink]="['/login']" class="font-rubik text-color-2">{{"login.already-have-account" | translate}}</a>
                 </div>
     <div>
-      <button type="button" class="btn btn-gradient btn-pill color-2 me-sm-3 me-2">{{"login.create-my-account" | translate}}</button>
+      <button [disabled]="!email || !password || password !== passwordConfirmation" (click)="creationCompte()" type="button" class="btn btn-gradient btn-pill color-2 me-sm-3 me-2">{{"login.create-my-account" | translate}}</button>
     </div>
   
 </form>
@@ -125,6 +130,10 @@ export class CreateAccountComponent implements OnInit {
    passwordType= 'password'
    passwordVisible=false;
 
+   email =''; 
+   password ='';
+   passwordConfirmation ='';
+
    currentLanguage = this.serverService.currentLanguage;
    availableLanguageList = this.serverService.availableLanguageList;
 
@@ -138,6 +147,10 @@ export class CreateAccountComponent implements OnInit {
 
   selectLanguage(language : Language) : void {
     this.serverService.selectLanguage(language)
+  }
+
+  creationCompte() : void {
+    this.serverService.creationCompte(this.email, this.password)
   }
 
   showPassword() {

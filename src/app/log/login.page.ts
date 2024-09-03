@@ -53,7 +53,7 @@ import { Language } from '../models/language.model';
                     <app-feather-icons [icon]="'mail'"></app-feather-icons>
                     </div>
                 </div>
-                <input type="text" class="form-control" [placeholder]="'login.enter-email' | translate" autocomplete="off">
+                <input type="text" [(ngModel)]="email" name="email" class="form-control" [placeholder]="'login.enter-email' | translate" autocomplete="off">
                 </div>
             </div>
             <div class="form-group">
@@ -63,7 +63,7 @@ import { Language } from '../models/language.model';
                     <app-feather-icons [icon]="'lock'"></app-feather-icons>
                     </div>
                 </div>
-                <input type="password" id="pwd-input" class="form-control" [placeholder]="'login.password' | translate" autocomplete="off" maxlength="8">
+                <input [(ngModel)]="password" name="password" type="password" id="pwd-input" class="form-control" [placeholder]="'login.password' | translate" autocomplete="off" maxlength="8">
                 <div class="input-group-apend">
                     <div class="input-group-text" (click)="showPassword()">
                     <i id="pwd-icon" class="far" [ngClass]="passwordVisible == true ? 'fa-eye' : 'fa-eye-slash'"></i>
@@ -78,7 +78,7 @@ import { Language } from '../models/language.model';
                 <a href="javascript:void(0)" class="font-rubik text-color-2">{{"login.password-forgot" | translate}}</a>
                 </div>
                 <div>
-                <button type="button" class="btn btn-gradient btn-pill color-2 me-sm-3 me-2">{{"login.login" | translate}}</button>
+                <button [disabled]="!email || !password" (click)="authentification()" type="button" class="btn btn-gradient btn-pill color-2 me-sm-3 me-2">{{"login.login" | translate}}</button>
                 <a href="javascript:void(0)" [routerLink]="['/create-account']" class="btn btn-dashed btn-pill color-2">{{"login.create-account" | translate}}</a>
                 </div>
             </form>
@@ -110,6 +110,9 @@ import { Language } from '../models/language.model';
 })
 export class LoginComponent implements OnInit {
 
+  email ="";
+  password="";
+
    passwordType= 'password'
    passwordVisible=false;
 
@@ -127,6 +130,11 @@ export class LoginComponent implements OnInit {
   selectLanguage(language : Language) : void {
     this.serverService.selectLanguage(language)
   }
+
+  authentification() {
+    this.serverService.authentification(this.email, this.password)
+  }
+
 
   showPassword() {
     this.passwordVisible = !this.passwordVisible;
