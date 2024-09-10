@@ -36,6 +36,25 @@ export class EffectService {
           }));
       }
 
+      logout():void{
+        this.store.authentificationIsLoading.set(true)
+        this.repository.logout().subscribe(
+          () => {
+            window.location.href = ''
+          }, 
+          (() => {
+            this.router.navigate([''])
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Erreur inconnu",
+            });
+            
+          }));
+      }
+
+      
+
     creationCompte(email : string, password : string):void{
         this.store.creationCompteIsLoading.set(true)
         this.repository.creationCompte(email, password).subscribe(

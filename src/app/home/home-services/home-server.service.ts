@@ -11,7 +11,8 @@ export class HomeServerService {
   constructor(
     private homeStore : HomeStoreService,
     private serverService : ServerService,
-    private homeEffect : HomeEffectService
+    private homeEffect : HomeEffectService,
+
   ) {
    }
 
@@ -19,4 +20,6 @@ export class HomeServerService {
   setSidebarOpen(value :boolean):void {this.homeEffect.setSidebarOpen(value)}
   menuList = this.homeStore.menuList.asReadonly();
    userConnected = this.serverService.userConnected;
+
+   logout():void {this.serverService.logout()}
 }

@@ -22,7 +22,8 @@ export class ServerService {
    selectLanguage(language : Language) : void {this.languageService.selectLanguage(language)}
   
    
+   
   authentification(email : string, password : string): void { this.effectService.authentification(email, password) }
   creationCompte(email : string, password : string): void { this.effectService.creationCompte(email, password) }
-
+  logout(): void { this.effectService.logout() }
 }

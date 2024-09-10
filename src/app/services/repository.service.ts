@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserConnected } from '../home/home-models/user-connected.model';
+import { Router } from '@angular/router';
 
 const URL_BACKEND = environment.urlBackEnd;
 const httpOptions = {
@@ -17,7 +18,7 @@ const httpOptions = {
 })
 export class RepositoryService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private router: Router) { }
 
 
     authentification(email : string, password : string): Observable<UserConnected> {
@@ -52,6 +53,10 @@ export class RepositoryService {
     verifAuthenticate(): Observable<UserConnected> {
       return this.http.get<UserConnected>(`${URL_BACKEND}/user/verifAuthenticate`, httpOptions);
     }
+
+    logout(): Observable<void> {
+      return this.http.get<void>(`${URL_BACKEND}/logout`, { withCredentials: true })
+  }
   
     private handleError(error: HttpErrorResponse) {
         if (error.status === 409) {

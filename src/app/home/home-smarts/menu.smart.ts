@@ -9,7 +9,7 @@ import { HomeServerService } from '../home-services/home-server.service';
   <app-logo></app-logo>
 </div>
 <div class="main-sidebar">
-  <!-- @if(userConnected(); as userConnected){ -->
+  @if(userConnected(); as userConnected){
     <div class="user-profile">
     <div class="media">
     <div class="change-pic">
@@ -17,13 +17,13 @@ import { HomeServerService } from '../home-services/home-server.service';
     </div>
     <div class="media-body">
       <a >
-        <h6>userConnected.pseudo</h6>
+        <h6>{{userConnected.pseudo}}</h6>
       </a>
-      <span class="font-roboto">userConnected.email</span>
+      <span class="font-roboto">{{userConnected.email}}</span>
     </div>
 </div>
   </div>
-  <!-- } -->
+  }
 
   @if(menuList(); as menus){
   <div id="mainsidebar">

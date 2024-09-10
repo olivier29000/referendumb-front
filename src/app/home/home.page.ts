@@ -56,7 +56,7 @@ export class HomePageComponent implements OnInit {
     }
 
     logout() : void {
-      //this.userService.logout().subscribe()
+      this.homeServer.logout()
     }
 
 
