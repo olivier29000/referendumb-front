@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  urlBackEnd : "http://localhost:8080/back", // "https://pourdubeurre.bzh/back"// 
-  trackAnalyticID: "@TODO"
+  urlFront: "http://localhost:4200",
+  urlBackEnd: "http://localhost:8080/back", // "https://pourdubeurre.bzh/back"//
+  trackAnalyticID: "@TODO",
 };
 
 /*
