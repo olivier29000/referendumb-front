@@ -19,6 +19,7 @@ import { CreateAccountComponent } from "./log/create-account.page";
 import { FormsModule } from "@angular/forms";
 import { ChangePasswordPage } from "./log/change-password.component";
 import { AccueilPage } from "./accueil/accueil.page";
+import { LandingPage } from "./landing/landing-page.page";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -31,6 +32,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CreateAccountComponent,
     ChangePasswordPage,
     AccueilPage,
+    LandingPage,
   ],
   imports: [
     BrowserModule,

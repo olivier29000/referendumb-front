@@ -9,23 +9,25 @@ import { CreateAccountComponent } from "./log/create-account.page";
 import { EffectService } from "./services/effect.service";
 import { AccueilPage } from "./accueil/accueil.page";
 import { ChangePasswordPage } from "./log/change-password.component";
+import { LandingPage } from "./landing/landing-page.page";
 
 const routes: Routes = [
-  { path: "login", component: LoginComponent },
-  { path: "create-account", component: CreateAccountComponent },
-  { path: "", component: AccueilPage },
-  {
-    path: "changement-mot-de-passe/:token",
-    component: ChangePasswordPage,
-  },
-  {
-    path: "home",
-    canActivate: [() => inject(EffectService).canActivate()],
-    loadChildren: () => import("./home/home.module").then((m) => m.HomeModule),
-  },
+  { path: "landing-page/:link", component: LandingPage },
+  // { path: "login", component: LoginComponent },
+  // { path: "create-account", component: CreateAccountComponent },
+  // { path: "", component: AccueilPage },
+  // {
+  //   path: "changement-mot-de-passe/:token",
+  //   component: ChangePasswordPage,
+  // },
+  // {
+  //   path: "home",
+  //   canActivate: [() => inject(EffectService).canActivate()],
+  //   loadChildren: () => import("./home/home.module").then((m) => m.HomeModule),
+  // },
   {
     path: "**",
-    redirectTo: "",
+    redirectTo: "/landing-page",
   },
 ];
 
