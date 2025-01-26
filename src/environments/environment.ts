@@ -3,10 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  urlFront: "http://localhost:4200",
-  urlBackEnd: "http://localhost:8080/back", // "https://pourdubeurre.bzh/back"//
-  trackAnalyticID: "@TODO",
+    production: false,
+    urlBackEnd: "http://localhost:8080/back", // "https://pourdubeurre.bzh/back"//
+    trackAnalyticID: "@TODO",
 };
 
 /*
