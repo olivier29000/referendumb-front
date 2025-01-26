@@ -61,8 +61,13 @@ import { AnalyticsService } from "./services/analytics.service";
                                     name="EMAIL"
                                     required
                                     autocomplete="off"
+                                    [(ngModel)]="email"
                                 />
-                                <button type="submit" class="default-btn">
+                                <button
+                                    type="submit"
+                                    class="default-btn"
+                                    (click)="inscriptionLandingPage()"
+                                >
                                     <dumb-feather-icons
                                         [icon]="'send'"
                                     ></dumb-feather-icons>
@@ -93,6 +98,7 @@ export class LandingPage implements OnInit {
     minutes: any;
     seconds: any;
     myInterval: any;
+    email = "";
 
     commingSoonTime = () => {
         const endTimeParse = Date.parse("March 1, 2025 12:00:00 PDT") / 1000;
@@ -119,7 +125,9 @@ export class LandingPage implements OnInit {
         this.minutes = minutes;
         this.seconds = seconds;
     };
-
+    inscriptionLandingPage(): void {
+        this.server.inscriptionLandingPage(this.email, []);
+    }
     ngOnInit(): void {
         this.n = this.getRandomNumber(1, 10);
         this.server.link.set(this.route.snapshot.paramMap.get("link") ?? "");

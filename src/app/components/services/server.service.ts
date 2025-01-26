@@ -8,6 +8,7 @@ import {
 } from "@angular/core";
 import { EffectService } from "./effect.service";
 import { StoreService } from "./store.service";
+import { Question } from "../models/question.model";
 
 @Injectable({
     providedIn: "root",
@@ -17,7 +18,11 @@ export class ServerService {
         private effectService: EffectService,
         private store: StoreService
     ) {}
-
+    emailGiven = this.store.emailGiven;
     link = this.store.link;
     currentEmail = this.store.currentEmail;
+
+    inscriptionLandingPage(email: string, questionList: Question[]): void {
+        this.effectService.inscriptionLandingPage(email, questionList);
+    }
 }

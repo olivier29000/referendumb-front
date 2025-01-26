@@ -8,5 +8,6 @@ export class StoreService {
 
     currentEmail: WritableSignal<string> = signal("");
     link: WritableSignal<string> = signal("");
+    emailGiven: WritableSignal<boolean> = signal(false);
     constructor() {}
 }

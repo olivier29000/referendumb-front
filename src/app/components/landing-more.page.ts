@@ -4,6 +4,7 @@ import { Question } from "./models/question.model";
 import { Choix } from "./models/choix.model";
 import { AnalyticsService } from "./services/analytics.service";
 import { ServerService } from "./services/server.service";
+import Swal from "sweetalert2";
 
 @Component({
     template: `
@@ -30,7 +31,7 @@ import { ServerService } from "./services/server.service";
                     >
                         Disponible le 1er avril
                     </h6>
-                    @if(emailGiven){
+                    @if(emailGiven()){
                     <h6
                         class="wow animate__animated animate__fadeInRight"
                         data-wow-delay="00ms"
@@ -53,8 +54,13 @@ import { ServerService } from "./services/server.service";
                                     name="EMAIL"
                                     required
                                     autocomplete="off"
+                                    [(ngModel)]="email"
                                 />
-                                <button type="submit" class="default-btn">
+                                <button
+                                    type="submit"
+                                    class="default-btn"
+                                    (click)="inscriptionLandingPage()"
+                                >
                                     <dumb-feather-icons
                                         [icon]="'send'"
                                     ></dumb-feather-icons>
@@ -190,7 +196,7 @@ import { ServerService } from "./services/server.service";
             <div class="container">
                 <div class="section-title">
                     <h2>
-                        @if(emailGiven){ On vient de vous envoyer un email
+                        @if(emailGiven()){ On vient de vous envoyer un email
                         }@else { Vous voulez jouer ? }
                     </h2>
                 </div>
@@ -311,41 +317,19 @@ import { ServerService } from "./services/server.service";
 
                 <div class="row">
                     <div class="col text-center">
-                        @if(emailGiven){
+                        @if(emailGiven()){
                         <div class="section-title">
                             <h2>On a hâte de vous voir sur l'appli</h2>
                         </div>
-                        }@else {
-                        <div class="jarallax" data-jarallax='{"speed": 0.3}'>
-                            <div class="container">
-                                <div class="main-banner-content">
-                                    <div
-                                        class="btn-box wow animate__animated animate__fadeInUp"
-                                        data-wow-delay="00ms"
-                                        data-wow-duration="1000ms"
-                                    >
-                                        <form class="newsletter-form">
-                                            <div class="form-group d-flex">
-                                                <input
-                                                    type="email"
-                                                    class="input-newsletter"
-                                                    placeholder="mon email"
-                                                    name="EMAIL"
-                                                    required
-                                                    autocomplete="off"
-                                                />
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        } @if(emailGiven){ Vous avez reçu un email :) }@else {
-                        <button type="submit" class="default-btn">
-                            @if(emailGiven){ Valider mes réponses }@else {
+                        }
+                        <button
+                            type="submit"
+                            class="default-btn"
+                            (click)="inscriptionLandingPage()"
+                        >
+                            @if(emailGiven()){ Valider mes réponses }@else {
                             Recevoir les résultats }
                         </button>
-                        }
                     </div>
                 </div>
             </div>
@@ -368,8 +352,8 @@ export class LandingMorePage implements OnInit {
         private server: ServerService,
         private analyticsService: AnalyticsService
     ) {}
-
-    emailGiven = false;
+    email = "";
+    emailGiven = this.server.emailGiven;
 
     questionList: Question[] = [
         {
@@ -377,10 +361,12 @@ export class LandingMorePage implements OnInit {
             enonce: "Chien ou chat",
             choixList: [
                 {
+                    id: 1,
                     titre: "chien",
                     image: "assets/referendumb/chien.png",
                 },
                 {
+                    id: 2,
                     titre: "chat",
                     image: "assets/referendumb/chat.png",
                 },
@@ -388,13 +374,15 @@ export class LandingMorePage implements OnInit {
         },
         {
             id: 2,
-            enonce: "Tu préfère te défendre contre 100 canards ou 1 cheval",
+            enonce: "Tu préfères te défendre contre 100 canards ou 1 cheval",
             choixList: [
                 {
+                    id: 3,
                     titre: "100 canards",
                     image: "assets/referendumb/canard.png",
                 },
                 {
+                    id: 4,
                     titre: "1 Cheval",
                     image: "assets/referendumb/cheval.png",
                 },
@@ -405,10 +393,12 @@ export class LandingMorePage implements OnInit {
             enonce: "Le beurre se range au frigo ou dehors",
             choixList: [
                 {
+                    id: 5,
                     titre: "Dans le frigo",
                     image: "assets/referendumb/beurrefroid.png",
                 },
                 {
+                    id: 6,
                     titre: "Hors du frigo",
                     image: "assets/referendumb/beurrechaud.png",
                 },
@@ -419,10 +409,12 @@ export class LandingMorePage implements OnInit {
             enonce: "C'est bon la pizza à l'ananas",
             choixList: [
                 {
+                    id: 7,
                     titre: "oui",
                     image: "assets/referendumb/pizzaavecananas.png",
                 },
                 {
+                    id: 8,
                     titre: "non",
                     image: "assets/referendumb/pizzasansananas.png",
                 },
@@ -433,10 +425,12 @@ export class LandingMorePage implements OnInit {
             enonce: "Leonardo Dicaprio resortira, un jour, avec une femme de son âge",
             choixList: [
                 {
+                    id: 9,
                     titre: "non",
                     image: "assets/referendumb/leom.png",
                 },
                 {
+                    id: 10,
                     titre: "oui",
                     image: "assets/referendumb/leoh.png",
                 },
@@ -447,16 +441,35 @@ export class LandingMorePage implements OnInit {
             enonce: "Xavier Dupont de Ligones est vivant ou mort ?",
             choixList: [
                 {
+                    id: 11,
                     titre: "vivant",
                     image: "assets/referendumb/xavierh.png",
                 },
                 {
+                    id: 12,
                     titre: "mort",
                     image: "assets/referendumb/xavierm.png",
                 },
             ],
         },
     ];
+
+    async inscriptionLandingPage(): Promise<void> {
+        if (this.email === "") {
+            const { value: email } = await Swal.fire({
+                title: "Quelle est votre adresse email",
+                input: "email",
+                inputLabel: "recevoir mes réponses",
+                inputPlaceholder: "Valider",
+            });
+            if (email) {
+                this.email = email;
+                this.server.inscriptionLandingPage(email, this.questionList);
+            }
+        } else {
+            this.server.inscriptionLandingPage(this.email, this.questionList);
+        }
+    }
 
     selectReponse(question: Question, choix: Choix): void {
         question.reponse = {
