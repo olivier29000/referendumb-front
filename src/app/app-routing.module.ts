@@ -69,7 +69,7 @@ const routes: Routes = [
     // { path: "*", component: ErrorPageComponent },
     {
         path: "**",
-        redirectTo: "landing-page",
+        redirectTo: "landing-page/rd",
     },
 ];
 
