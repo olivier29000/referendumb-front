@@ -35,7 +35,7 @@ import { LandingMorePage } from "./components/landing-more.page";
 
 const routes: Routes = [
     // { path: "", component: MainHomeComponent },
-    { path: "landing-page", component: LandingPage },
+    { path: "landing-page/:link", component: LandingPage },
     { path: "landing-more-page", component: LandingMorePage },
     { path: "esports", component: EsportsHomeComponent },
     { path: "bosting", component: BostingHomeComponent },
