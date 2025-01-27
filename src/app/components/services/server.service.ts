@@ -9,6 +9,7 @@ import {
 import { EffectService } from "./effect.service";
 import { StoreService } from "./store.service";
 import { Question } from "../models/question.model";
+import { Choix } from "../models/choix.model";
 
 @Injectable({
     providedIn: "root",
@@ -24,7 +25,15 @@ export class ServerService {
     currentEmail = this.store.currentEmail;
 
     inscriptionLandingPage(email: string): void {
-        this.effectService.inscriptionLandingPage(email);
+        const questionList = this.store.questionList().filter((q) => q.reponse);
+        if (questionList.length > 0) {
+            this.effectService.inscriptionLandingPageAvecQuestions(
+                email,
+                questionList
+            );
+        } else {
+            this.effectService.inscriptionLandingPage(email);
+        }
     }
 
     inscriptionLandingPageAvecQuestions(
@@ -36,4 +45,10 @@ export class ServerService {
             questionList
         );
     }
+
+    selectReponse(question: Question, choix: Choix): void {
+        this.effectService.selectReponse(question, choix);
+    }
+
+    questionList = this.store.questionList;
 }
