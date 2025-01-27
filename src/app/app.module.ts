@@ -78,6 +78,7 @@ import { FormsModule } from "@angular/forms";
 import { environment } from "src/environments/environment";
 import { NgxGoogleAnalyticsModule } from "ngx-google-analytics";
 import { HttpClientModule } from "@angular/common/http";
+import { FooterDumb } from "./components/dumbs/footer.dumb";
 
 @NgModule({
     declarations: [
@@ -153,6 +154,7 @@ import { HttpClientModule } from "@angular/common/http";
         LandingPage,
         FeatherIconsDumb,
         LandingMorePage,
+        FooterDumb,
     ],
     imports: [
         BrowserModule,
