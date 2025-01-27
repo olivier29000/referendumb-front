@@ -16,6 +16,13 @@ import { AnalyticsService } from "./services/analytics.service";
                     <div class="coming-soon-content">
                         <img src="assets/referendumb-wbg.png" alt="image" />
                         <h2>Pronostiquez sur l'opinion de la communauté !</h2>
+                        <br />
+                        <h4>
+                            Referendumb vous propose de répondre à une question
+                            loufoque par jour et de pronostiquer sur les
+                            réponses de la communauté
+                        </h4>
+                        <h4>Que le meilleur gagne !</h4>
                         <p class="mb-0 bt-3" style="margin-top: 40px;">
                             Date de sortie : 1er Mars
                         </p>
@@ -76,7 +83,7 @@ import { AnalyticsService } from "./services/analytics.service";
                         </form>
                         <h4>
                             <a routerLink="/landing-more-page"
-                                >En savoir plus</a
+                                >Cliquez ici pour en savoir plus</a
                             >
                         </h4>
                     </div>
@@ -126,7 +133,7 @@ export class LandingPage implements OnInit {
         this.seconds = seconds;
     };
     inscriptionLandingPage(): void {
-        this.server.inscriptionLandingPage(this.email, []);
+        this.server.inscriptionLandingPage(this.email);
     }
     ngOnInit(): void {
         this.n = this.getRandomNumber(1, 10);

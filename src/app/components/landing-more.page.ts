@@ -201,7 +201,15 @@ import Swal from "sweetalert2";
                 <div class="single-matches-box">
                     <div class="row align-items-center">
                         <div class="col-lg-5 col-md-12">
-                            <div class="matches-team">
+                            <div
+                                class="matches-team"
+                                (click)="
+                                    selectReponse(
+                                        question,
+                                        question.choixList[0]
+                                    )
+                                "
+                            >
                                 <img
                                     [src]="question.choixList[0].image"
                                     class="wow animate__animated animate__fadeInLeft"
@@ -210,15 +218,7 @@ import Swal from "sweetalert2";
                                     alt="image"
                                 />
 
-                                <div
-                                    class="content"
-                                    (click)="
-                                        selectReponse(
-                                            question,
-                                            question.choixList[0]
-                                        )
-                                    "
-                                >
+                                <div class="content">
                                     <h3>
                                         <a
                                             class="pt-1"
@@ -250,7 +250,15 @@ import Swal from "sweetalert2";
                         </div>
 
                         <div class="col-lg-5 col-md-12">
-                            <div class="matches-team right-image">
+                            <div
+                                class="matches-team right-image"
+                                (click)="
+                                    selectReponse(
+                                        question,
+                                        question.choixList[1]
+                                    )
+                                "
+                            >
                                 <img
                                     [src]="question.choixList[1].image"
                                     class="wow animate__animated animate__fadeInRight"
@@ -259,15 +267,7 @@ import Swal from "sweetalert2";
                                     alt="image"
                                 />
 
-                                <div
-                                    class="content"
-                                    (click)="
-                                        selectReponse(
-                                            question,
-                                            question.choixList[1]
-                                        )
-                                    "
-                                >
+                                <div class="content">
                                     <h3>
                                         <a
                                             class="pt-1"
@@ -317,7 +317,7 @@ import Swal from "sweetalert2";
                         <button
                             type="submit"
                             class="default-btn"
-                            (click)="inscriptionLandingPage()"
+                            (click)="inscriptionLandingPageAvecQuestions()"
                         >
                             @if(emailGiven()){ Valider mes réponses }@else {
                             Recevoir les résultats }
@@ -461,10 +461,33 @@ export class LandingMorePage implements OnInit {
             });
             if (email) {
                 this.email = email;
-                this.server.inscriptionLandingPage(email, this.questionList);
+                this.server.inscriptionLandingPage(email);
             }
         } else {
-            this.server.inscriptionLandingPage(this.email, this.questionList);
+            this.server.inscriptionLandingPage(this.email);
+        }
+    }
+
+    async inscriptionLandingPageAvecQuestions(): Promise<void> {
+        if (!this.server.emailGiven()) {
+            const { value: email } = await Swal.fire({
+                title: "Quelle est votre adresse email",
+                input: "email",
+                inputLabel: "recevoir mes réponses",
+                inputPlaceholder: "Valider",
+            });
+            if (email) {
+                this.email = email;
+                this.server.inscriptionLandingPageAvecQuestions(
+                    email,
+                    this.questionList
+                );
+            }
+        } else {
+            this.server.inscriptionLandingPageAvecQuestions(
+                this.email,
+                this.questionList
+            );
         }
     }
 

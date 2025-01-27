@@ -13,7 +13,7 @@ const URL_BACKEND = environment.urlBackEnd;
 export class RepoService {
     constructor(private http: HttpClient) {}
 
-    inscriptionLandingPage(
+    inscriptionLandingPageAvecQuestions(
         email: string,
         link: string,
         questionList: Question[]
@@ -22,6 +22,14 @@ export class RepoService {
             .post<void>(
                 `${URL_BACKEND}/user/inscription-landing-page/${email}/${link}`,
                 questionList
+            )
+            .pipe(catchError(this.handleError));
+    }
+
+    inscriptionLandingPage(email: string, link: string): Observable<void> {
+        return this.http
+            .get<void>(
+                `${URL_BACKEND}/user/inscription-landing-page/${email}/${link}`
             )
             .pipe(catchError(this.handleError));
     }

@@ -23,7 +23,17 @@ export class ServerService {
     link = this.store.link;
     currentEmail = this.store.currentEmail;
 
-    inscriptionLandingPage(email: string, questionList: Question[]): void {
-        this.effectService.inscriptionLandingPage(email, questionList);
+    inscriptionLandingPage(email: string): void {
+        this.effectService.inscriptionLandingPage(email);
+    }
+
+    inscriptionLandingPageAvecQuestions(
+        email: string,
+        questionList: Question[]
+    ): void {
+        this.effectService.inscriptionLandingPageAvecQuestions(
+            email,
+            questionList
+        );
     }
 }
