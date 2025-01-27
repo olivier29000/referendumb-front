@@ -29,7 +29,7 @@ import Swal from "sweetalert2";
                         data-wow-delay="00ms"
                         data-wow-duration="1000ms"
                     >
-                        Disponible le 1er avril
+                        Disponible le 1er mars 2025
                     </h6>
                     @if(emailGiven()){
                     <h6
