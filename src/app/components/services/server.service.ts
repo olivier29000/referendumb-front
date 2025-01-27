@@ -18,6 +18,7 @@ export class ServerService {
         private effectService: EffectService,
         private store: StoreService
     ) {}
+    isLoading = this.store.isLoading;
     emailGiven = this.store.emailGiven;
     link = this.store.link;
     currentEmail = this.store.currentEmail;

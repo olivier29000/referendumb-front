@@ -1,48 +1,63 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationStart, NavigationCancel, NavigationEnd } from '@angular/router';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { filter } from 'rxjs/operators';
+import { Component, OnInit } from "@angular/core";
+import {
+    Router,
+    NavigationStart,
+    NavigationCancel,
+    NavigationEnd,
+} from "@angular/router";
+import {
+    Location,
+    LocationStrategy,
+    PathLocationStrategy,
+} from "@angular/common";
+import { filter } from "rxjs/operators";
+import { ServerService } from "./components/services/server.service";
 declare let $: any;
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
+    selector: "app-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.scss"],
     providers: [
-        Location, {
+        Location,
+        {
             provide: LocationStrategy,
-            useClass: PathLocationStrategy
-        }
-    ]
+            useClass: PathLocationStrategy,
+        },
+    ],
 })
 export class AppComponent implements OnInit {
     location: any;
     routerSubscription: any;
+    isLoading = this.server.isLoading;
+    constructor(private router: Router, private server: ServerService) {}
 
-    constructor(private router: Router) {
-    }
-
-    ngOnInit(){
-        this.recallJsFuntions();
+    ngOnInit() {
+        // this.recallJsFuntions();
     }
 
     recallJsFuntions() {
-        this.router.events
-        .subscribe((event) => {
-            if ( event instanceof NavigationStart ) {
-                $('.preloader').fadeIn('slow');
+        this.router.events.subscribe((event) => {
+            if (event instanceof NavigationStart) {
+                $(".preloader").fadeIn("slow");
             }
         });
         this.routerSubscription = this.router.events
-        .pipe(filter(event => event instanceof NavigationEnd || event instanceof NavigationCancel))
-        .subscribe(event => {
-            $.getScript('../assets/js/main.js');
-            $('.preloader').fadeOut('slow');
-            this.location = this.router.url;
-            if (!(event instanceof NavigationEnd)) {
-                return;
-            }
-            window.scrollTo(0, 0);
-        });
+            .pipe(
+                filter(
+                    (event) =>
+                        event instanceof NavigationEnd ||
+                        event instanceof NavigationCancel
+                )
+            )
+            .subscribe((event) => {
+                $.getScript("../assets/js/main.js");
+                $(".preloader").fadeOut("slow");
+                this.location = this.router.url;
+                if (!(event instanceof NavigationEnd)) {
+                    return;
+                }
+                window.scrollTo(0, 0);
+            });
     }
 }

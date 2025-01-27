@@ -195,10 +195,7 @@ import Swal from "sweetalert2";
         <section class="matches-area ptb-100 pt-3">
             <div class="container">
                 <div class="section-title">
-                    <h2>
-                        @if(emailGiven()){ On vient de vous envoyer un email
-                        }@else { Vous voulez jouer ? }
-                    </h2>
+                    <h2>Vous voulez jouer ?</h2>
                 </div>
                 @for (question of questionList; track $index) {
                 <div class="single-matches-box">
@@ -317,11 +314,6 @@ import Swal from "sweetalert2";
 
                 <div class="row">
                     <div class="col text-center">
-                        @if(emailGiven()){
-                        <div class="section-title">
-                            <h2>On a hâte de vous voir sur l'appli</h2>
-                        </div>
-                        }
                         <button
                             type="submit"
                             class="default-btn"
@@ -330,6 +322,11 @@ import Swal from "sweetalert2";
                             @if(emailGiven()){ Valider mes réponses }@else {
                             Recevoir les résultats }
                         </button>
+                        @if(emailGiven()){
+                        <div class="section-title">
+                            <h2>On a hâte de vous voir sur l'appli</h2>
+                        </div>
+                        }
                     </div>
                 </div>
             </div>

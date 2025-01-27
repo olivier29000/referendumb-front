@@ -18,19 +18,26 @@ export class EffectService {
     constructor(private repo: RepoService, private store: StoreService) {}
 
     inscriptionLandingPage(email: string, questionList: Question[]): void {
+        this.store.isLoading.set(true);
         this.repo
             .inscriptionLandingPage(
                 email,
                 this.store.link() === "" ? "null" : this.store.link(),
                 questionList.filter((q) => q.reponse)
             )
-            .subscribe(() => {
-                this.store.emailGiven.set(true);
-                Swal.fire({
-                    icon: "success",
-                    title: "Merci :)",
-                    text: "On vient de t'envoyer un email pour confirmer",
-                });
-            });
+            .subscribe(
+                () => {
+                    this.store.emailGiven.set(true);
+                    Swal.fire({
+                        icon: "success",
+                        title: "Merci :)",
+                        text: "On vient de t'envoyer un email pour confirmer",
+                    });
+                    this.store.isLoading.set(false);
+                },
+                () => {
+                    this.store.isLoading.set(false);
+                }
+            );
     }
 }
